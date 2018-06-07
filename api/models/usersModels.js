@@ -41,7 +41,7 @@ UsersSchema.pre('save', function(next){
 // =================  Custom function  =================
 // =====================================================
 
-//TODO : ce rappeler à quoi sert cette fonction
+//TODO : ce rappeler à quoi sert cette fonction et la coder
 UsersSchema.methods.isValid = function(){
 
 }
