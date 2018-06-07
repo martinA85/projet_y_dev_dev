@@ -6,7 +6,6 @@ var Schema = mongoose.Schema;
 
 //Declaring Event schema
 var EventSchema = new Schema({
-
     title : String,
     dateEvent : Date,
     subscription : Boolean,
@@ -17,7 +16,7 @@ var EventSchema = new Schema({
         body : String,
         date : Date,
         author : {
-            types : Schema.Types.ObjectId,
+            type : Schema.Types.ObjectId,
             ref: 'Users'
         }
     }],
@@ -25,17 +24,17 @@ var EventSchema = new Schema({
         rate : Number,
         date : Date,
         author : {
-            types : Schema.Types.ObjectId,
+            type : Schema.Types.ObjectId,
             ref: 'Users'
         }
     }],
     validations : [{
         user : {
-            types : Schema.Types.ObjectId,
+            type : Schema.Types.ObjectId,
             ref: 'Users'
         }
     }],
-    idEnd : {
+    isEnd : {
         type : Boolean,
         default : false
     },

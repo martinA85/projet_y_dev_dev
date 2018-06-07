@@ -3,6 +3,7 @@
 module.exports = function(app, jwt){
     var users = require('../controllers/usersController');
     var auth = require('../controllers/authController');
+    var event = require('../controllers/eventController')
     
     //route before middleware
     app.route('/auth').post(auth.authentificate);
@@ -34,7 +35,12 @@ module.exports = function(app, jwt){
     });
 
     //routes under middleware
-    app.route('/users').get(users.getAllUsers)
-    app.route('/users/:userId').get(users.getUserById).put(users.updateUser).delete(users.deleteUser)
+    //User routes
+    app.route('/users').get(users.getAllUsers);
+    app.route('/users/:userId').get(users.getUserById).put(users.updateUser).delete(users.deleteUser);
+
+    //Event routes
+    app.route('/event').post(event.createEvent).get(event.getAllEvent);
+    app.route('/event/:eventId').get(event.getEventById).put(event.updateEvent).delete(event.deleteEvent);
 
 }

@@ -10,7 +10,6 @@ var Users = mongoose.model("Users");
 //Return the user object after creation or return error
 exports.createUser = function(request, response){
     let new_user = new Users(request.body);
-    console.log(new_user);
     new_user.save(function(err, new_user){
         if(err){
             response.send(err);
@@ -52,7 +51,7 @@ exports.updateUser = function(request, response){
 
 //Return messaage if deletion is a success or return error
 exports.deleteUser = function(request, response){
-    Users.remove({_id:request.params.userId},function(err, task){
+    Users.remove({_id:request.params.userId},function(err, user){
         if(err){
             response.send(err)
         }
