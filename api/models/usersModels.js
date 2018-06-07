@@ -7,23 +7,34 @@ var Schema = mongoose.Schema;
 // Creating user Schema
 var UsersSchema = new Schema({
     name : String,
+    firstName : String,
+    isCompany : Boolean,
+    companyName : String,
+    description : String,
+    email : String,
     password : String,
     token : {
         type: String,
         default: ""
-    }
+    },
+    createDate : {
+        type : Date,
+        default : Date.now
+    },
+    updateDate : Date,
+    connection_type : String,
+    status : String
+
+})
+
+//Pre save function : data validation, updating updateDate field
+UsersSchema.pre('save', function(next){
+
+    let now = new Date();
+
+    this.updateDate = now;
+
+    next();
 })
 
 module.exports = mongoose.model('Users', UsersSchema);
-
-var User = mongoose.model('Users')
-
-module.exports.createUser = function(data){
-    let new_user = new User(data);
-    new_user.save(function(err, user){
-        if(err){
-            return err;
-        }
-        return user;
-    });
-}
