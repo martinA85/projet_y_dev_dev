@@ -37,4 +37,14 @@ UsersSchema.pre('save', function(next){
     next();
 })
 
+// =====================================================
+// =================  Custom function  =================
+// =====================================================
+
+//TODO : ce rappeler à quoi sert cette fonction
+UsersSchema.methods.isValid = function(){
+
+}
+
+
 module.exports = mongoose.model('Users', UsersSchema);

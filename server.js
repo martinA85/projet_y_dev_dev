@@ -36,7 +36,7 @@ app.get('/', function(req, res) {
 });
 
 //setting up routes
-var routes = require('./api/routes/usersRoutes'); //importing route
+var routes = require('./api/routes/appsRoutes'); //importing route
 routes(app, jwt); //register the route
 
 //start server

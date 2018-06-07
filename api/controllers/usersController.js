@@ -3,6 +3,10 @@
 var mongoose = require("mongoose");
 var Users = mongoose.model("Users");
 
+// ====================================================
+// ======================  CRUD  ======================
+// ====================================================
+
 //Return the user object after creation or return error
 exports.createUser = function(request, response){
     let new_user = new Users(request.body);
@@ -55,3 +59,7 @@ exports.deleteUser = function(request, response){
         response.json({success:true, message:"User deleted"})
     });
 }
+
+// =====================================================
+// =================  Other function  ==================
+// =====================================================
