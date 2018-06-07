@@ -49,7 +49,7 @@ exports.updateUser = function(request, response){
     });
 }
 
-//Return messaage if deletion is a success or return error
+//Return message if deletion is a success or return error
 exports.deleteUser = function(request, response){
     Users.remove({_id:request.params.userId},function(err, user){
         if(err){
