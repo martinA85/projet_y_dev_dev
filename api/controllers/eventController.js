@@ -20,11 +20,11 @@ exports.createEvent = function(request, response){
 
 //return a list of event or return error
 exports.getAllEvent = function(request, response){
-    Event.find({}, function(err, users){
+    Event.find({}, function(err, events){
         if(err){
             response.send(err);
         }
-        response.json(users);
+        response.json(events);
     });
 }
 
@@ -54,7 +54,7 @@ exports.deleteEvent = function(request, response){
         if(err){
             response.send(err);
         }
-        response.json({success:true, message:"Event deleted"})
+        response.json({success:true, message:"Event deleted"});
     })
 }
 

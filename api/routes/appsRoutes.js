@@ -4,6 +4,7 @@ module.exports = function(app, jwt){
     var users = require('../controllers/usersController');
     var auth = require('../controllers/authController');
     var event = require('../controllers/eventController')
+    var tag = require('../controllers/tagsController')
     
     //route before middleware
     app.route('/auth').post(auth.authentificate);
@@ -42,5 +43,9 @@ module.exports = function(app, jwt){
     //Event routes
     app.route('/event').post(event.createEvent).get(event.getAllEvent);
     app.route('/event/:eventId').get(event.getEventById).put(event.updateEvent).delete(event.deleteEvent);
+
+    //Tags routes
+    app.route('/tag').post(tag.createTag).get(tag.getAllTags);
+    app.route('/tag/:tagId').get(tag.getTagById).put(tag.updateTag).delete(tag.deleteEvent);
 
 }

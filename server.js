@@ -6,8 +6,9 @@ var morgan = require("morgan");
 var mongoose = require("mongoose");
 var jwt = require("jsonwebtoken");
 var config = require("./config");
-var Users = require('./api/models/usersModels')
-var Events = require('./api/models/eventsModels')
+var Users = require('./api/models/usersModels');
+var Events = require('./api/models/eventsModels');
+var Tags = require('./api/models/tagsModels');
 
 //exporting variable
 module.exports.jwt = jwt;
@@ -33,7 +34,7 @@ app.use(morgan('dev'));
 
 //Basic route
 app.get('/', function(req, res) {
-    res.send('Hello, there is nothing here ;)');
+    res.send('vide');
 });
 
 //setting up routes
@@ -42,4 +43,4 @@ routes(app, jwt); //register the route
 
 //start server
 app.listen(port);
-console.log(Date.now + ': server started on port : ' + port)
+console.log('server started on port : ' + port);
