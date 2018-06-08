@@ -57,3 +57,7 @@ exports.deleteNotification = function(request, response){
         response.json({success:true, message:"Notification deleted"});
     });
 }
+
+// =====================================================
+// =================  Other function  ==================
+// =====================================================
