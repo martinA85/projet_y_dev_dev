@@ -6,6 +6,7 @@ var morgan = require("morgan");
 var mongoose = require("mongoose");
 var jwt = require("jsonwebtoken");
 var config = require("./config");
+//TODO : externaliser
 var Users = require('./api/models/usersModels');
 var Events = require('./api/models/eventsModels');
 var Tags = require('./api/models/tagsModels');

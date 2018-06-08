@@ -61,5 +61,5 @@ module.exports = function(app, jwt){
 
     //Localisation routes
     app.route('/localisation').post(localisation.createLocalisation).get(localisation.getAllLocation);
-    app.route('/localisation/:loc').get(localisation.getOneLocation).put(localisation.updateLocation);
+    app.route('/localisation/:locId').get(localisation.getOneLocation).put(localisation.updateLocation).delete(localisation.deleteLocation);
 }

@@ -17,8 +17,8 @@ var LocalisationSchema = new Schema({
 
 
 //TODO : ajouter les validations de données
-LocalisationSchema.pre('save', function(){
-
+LocalisationSchema.pre('save', function(next){
+    next();
 });
 
 // =====================================================
