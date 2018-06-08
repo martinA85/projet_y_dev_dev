@@ -60,3 +60,8 @@ exports.deleteEventSubscription = function(request, response){
         response.json({success:true, message:"Subscription deleted"});
     })
 }
+
+
+// =====================================================
+// =================  Other function  ==================
+// =====================================================
