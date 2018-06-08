@@ -28,7 +28,7 @@ exports.getAllTags = function(request, response){
     });
 }
 
-//Return one tab find by his id or error
+//Return one tag find by his id or error
 exports.getTagById = function(request, response){
     Tag.findById(request.params.tagId, function(err, tag){
         if(err){

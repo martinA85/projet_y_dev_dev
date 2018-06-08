@@ -9,6 +9,7 @@ var config = require("./config");
 var Users = require('./api/models/usersModels');
 var Events = require('./api/models/eventsModels');
 var Tags = require('./api/models/tagsModels');
+var EventSub = require('./api/models/eventSubscriptionModels');
 
 //exporting variable
 module.exports.jwt = jwt;
