@@ -6,6 +6,7 @@ module.exports = function(app, jwt){
     var event = require('../controllers/eventController')
     var tag = require('../controllers/tagsController')
     var eventSub = require('../controllers/eventSubscriptionController');
+    var interest = require('../controllers/InterestController');
     
     //route before middleware
     app.route('/auth').post(auth.authentificate);
@@ -54,4 +55,6 @@ module.exports = function(app, jwt){
     app.route('/eventSub/:eventSubId').get(eventSub.getEventSubById).put(eventSub.updateEventSubscription).delete(eventSub.deleteEventSubscription);
 
     //Interest routes
+    app.route('/interest').post(interest.createInterest).get(interest.getAllInterest);
+    app.route('/interest/:interestId').get(interest.getInterestById).delete(interest.deleteInterest);
 }
