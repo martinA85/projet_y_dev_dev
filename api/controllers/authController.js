@@ -6,6 +6,7 @@ var server = require('../../server');
 var jwt = server.jwt;
 var app = server.app;
 
+//check if auth exist and have the right password and give him a token
 exports.authentificate = function(request, response){
     Users.findOne({name:request.body.name}, function(err, user){
         if (err) throw err;
