@@ -8,6 +8,7 @@ module.exports = function(app, jwt){
     var eventSub = require('../controllers/eventSubscriptionController');
     var interest = require('../controllers/InterestController');
     var localisation = require('../controllers/localisationController');
+    var notification = require('../controllers/NotificationControllers');
     
     //route before middleware
     app.route('/auth').post(auth.authentificate);
@@ -62,4 +63,7 @@ module.exports = function(app, jwt){
     //Localisation routes
     app.route('/localisation').post(localisation.createLocalisation).get(localisation.getAllLocation);
     app.route('/localisation/:locId').get(localisation.getOneLocation).put(localisation.updateLocation).delete(localisation.deleteLocation);
+
+    app.route('/notification').post(notification.createNotification).get(notification.getAllNotification);
+    app.route('/notification/:notificationId').get(notification.getOneNotificationById).put(notification.updateNotification).delete(notification.deleteNotification);
 }
