@@ -6,12 +6,14 @@ var morgan = require("morgan");
 var mongoose = require("mongoose");
 var jwt = require("jsonwebtoken");
 var config = require("./config");
+//TODO : externaliser
 var Users = require('./api/models/usersModels');
 var Events = require('./api/models/eventsModels');
 var Tags = require('./api/models/tagsModels');
 var EventSub = require('./api/models/eventSubscriptionModels');
 var Interest = require('./api/models/interestModels');
 var Localisation = require('./api/models/localisationModels');
+var Notification = require('./api/models/notificationModels');
 
 //exporting variable
 module.exports.jwt = jwt;

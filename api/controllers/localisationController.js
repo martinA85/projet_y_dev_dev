@@ -30,7 +30,7 @@ exports.getAllLocation = function(request, response){
 
 //Return a location or an error
 exports.getOneLocation = function(request, response){
-    Localisation.findById(request.params.loc, function(err, location){
+    Localisation.findById(request.params.locId, function(err, location){
         if(err){
             response.send(err);
         }
@@ -40,10 +40,25 @@ exports.getOneLocation = function(request, response){
 
 //Return the localisation after the update or an error
 exports.updateLocation = function(request, response){
-    Localisation.findOneAndUpdate({_id:request.params.loc}, request.body, {new:true}, function(err, location){
+    Localisation.findOneAndUpdate({_id:request.params.locId}, request.body, {new:true}, function(err, location){
         if(err){
             response.send(err);
         }
         response.json(location);
     })
 }
+
+
+exports.deleteLocation = function(request, response){
+    Localisation.remove({_id:request.params.locId}, function(err, event){
+        if(err){
+            response.send(err);
+        }
+        response.json({success:true, message:"Location deleted"});
+    });
+}
+
+
+// =====================================================
+// =================  Other function  ==================
+// =====================================================

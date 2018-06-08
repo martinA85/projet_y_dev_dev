@@ -10,6 +10,7 @@ module.exports = function(app, jwt){
     var localisation = require('../controllers/localisationController');
     var eventType = require('../controllers/eventTypeController');
     var report = require('../controllers/reportController');
+    var notification = require('../controllers/NotificationControllers');
     
     //route before middleware
     app.route('/auth').post(auth.authentificate);
@@ -63,7 +64,7 @@ module.exports = function(app, jwt){
 
     //Localisation routes
     app.route('/localisation').post(localisation.createLocalisation).get(localisation.getAllLocation);
-    app.route('/localisation/:loc').get(localisation.getOneLocation).put(localisation.updateLocation);
+    app.route('/localisation/:locId').get(localisation.getOneLocation).put(localisation.updateLocation).delete(localisation.deleteLocation);
 
     //EventType routes
     app.route('/eventType').post(eventType.createEventType).get(eventType.getAllEventTypes);
@@ -72,4 +73,7 @@ module.exports = function(app, jwt){
     // Report routes
     app.route('/report').post(report.createReport).get(report.getAllReports);
     app.route('/report/:reportId').get(report.getReportById).put(report.updateReport).delete(report.deleteReport);
+
+    app.route('/notification').post(notification.createNotification).get(notification.getAllNotification);
+    app.route('/notification/:notificationId').get(notification.getOneNotificationById).put(notification.updateNotification).delete(notification.deleteNotification);
 }
