@@ -7,6 +7,7 @@ module.exports = function(app, jwt){
     var tag = require('../controllers/tagsController')
     var eventSub = require('../controllers/eventSubscriptionController');
     var interest = require('../controllers/InterestController');
+    var localisation = require('../controllers/localisationController');
     
     //route before middleware
     app.route('/auth').post(auth.authentificate);
@@ -57,4 +58,8 @@ module.exports = function(app, jwt){
     //Interest routes
     app.route('/interest').post(interest.createInterest).get(interest.getAllInterest);
     app.route('/interest/:interestId').get(interest.getInterestById).delete(interest.deleteInterest);
+
+    //Localisation routes
+    app.route('/localisation').post(localisation.createLocalisation).get(localisation.getAllLocation);
+    app.route('/localisation/:loc').get(localisation.getOneLocation).put(localisation.updateLocation);
 }

@@ -11,6 +11,7 @@ var Events = require('./api/models/eventsModels');
 var Tags = require('./api/models/tagsModels');
 var EventSub = require('./api/models/eventSubscriptionModels');
 var Interest = require('./api/models/interestModels');
+var Localisation = require('./api/models/localisationModels');
 
 //exporting variable
 module.exports.jwt = jwt;
