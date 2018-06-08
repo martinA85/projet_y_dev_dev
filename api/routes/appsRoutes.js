@@ -8,6 +8,8 @@ module.exports = function(app, jwt){
     var eventSub = require('../controllers/eventSubscriptionController');
     var interest = require('../controllers/InterestController');
     var localisation = require('../controllers/localisationController');
+    var eventType = require('../controllers/eventTypeController');
+    var report = require('../controllers/reportController');
     
     //route before middleware
     app.route('/auth').post(auth.authentificate);
@@ -62,4 +64,12 @@ module.exports = function(app, jwt){
     //Localisation routes
     app.route('/localisation').post(localisation.createLocalisation).get(localisation.getAllLocation);
     app.route('/localisation/:loc').get(localisation.getOneLocation).put(localisation.updateLocation);
+
+    //EventType routes
+    app.route('/eventType').post(eventType.createEventType).get(eventType.getAllEventTypes);
+    app.route('/eventType/:eventTypeId').get(eventType.getEventTypeById).put(eventType.updateEventType).delete(eventType.deleteEventType);
+
+    // Report routes
+    app.route('/report').post(report.createReport).get(report.getAllReports);
+    app.route('/report/:reportId').get(report.getReportById).put(report.updateReport).delete(report.deleteReport);
 }
