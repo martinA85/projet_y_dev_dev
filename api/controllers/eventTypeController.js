@@ -30,7 +30,7 @@ exports.getAllEventTypes = function (request, response) {
 
 // Return one eventType find by his id or return error
 exports.getEventTypeById = function (request, response) {
-    EventType.findById(request.parmas.eventId, function (err, eventType) {
+    EventType.findById(request.parmas.eventTypeId, function (err, eventType) {
         if (err) {
             response.send(err);
         }

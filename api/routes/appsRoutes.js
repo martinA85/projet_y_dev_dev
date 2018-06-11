@@ -10,6 +10,8 @@ module.exports = function(app, jwt){
     var localisation = require('../controllers/localisationController');
     var eventType = require('../controllers/eventTypeController');
     var report = require('../controllers/reportController');
+    var reportType = require('../controllers/reportTypeController');
+    var eventsTags = require('../controllers/eventsTagsController');
     var notification = require('../controllers/NotificationControllers');
     
     //route before middleware
@@ -74,6 +76,15 @@ module.exports = function(app, jwt){
     app.route('/report').post(report.createReport).get(report.getAllReports);
     app.route('/report/:reportId').get(report.getReportById).put(report.updateReport).delete(report.deleteReport);
 
+    // ReportType routes
+    app.route('/reportType').post(reportType.createReportType).get(reportType.getAllReportType);
+    app.route('/reportType/:reportTypeId').get(reportType.getReportTypeById).put(reportType.updateReportType).delete(reportType.deleteReportType);
+
+    // EventsTags routes
+    app.route('/eventsTags').post(eventsTags.createEventsTags).get(eventsTags.getAllEventsTags);
+    app.route('/eventsTags/:eventsTagsId').get(eventsTags.getEventsTagsById).put(eventsTags.updateEventsTags).delete(eventsTags.deleteEventsTags);
+
+    // Notificaiton routes
     app.route('/notification').post(notification.createNotification).get(notification.getAllNotification);
     app.route('/notification/:notificationId').get(notification.getOneNotificationById).put(notification.updateNotification).delete(notification.deleteNotification);
 }

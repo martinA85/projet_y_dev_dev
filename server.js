@@ -12,7 +12,11 @@ var Events = require('./api/models/eventsModels');
 var Tags = require('./api/models/tagsModels');
 var EventSub = require('./api/models/eventSubscriptionModels');
 var Interest = require('./api/models/interestModels');
+var EventType = require('./api/models/eventTypeModels');
 var Localisation = require('./api/models/localisationModels');
+var Report = require('./api/models/reportModels');
+var ReportType = require('./api/models/reportTypeModels');
+var EventsTags = require('./api/models/eventsTagsModels');
 var Notification = require('./api/models/notificationModels');
 
 //exporting variable

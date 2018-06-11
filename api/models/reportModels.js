@@ -27,7 +27,7 @@ var ReportSchema = new Schema({
     updateDate: Date
 });
 
-EventSchema.pre('save', function (next) {
+ReportSchema.pre('save', function (next) {
 
     let now = new Date();
 
@@ -40,3 +40,5 @@ EventSchema.pre('save', function (next) {
 // =================  Custom function  =================
 // =====================================================
 
+//Export model
+module.exports = mongoose.model('Report', ReportSchema);

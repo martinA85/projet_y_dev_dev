@@ -1,4 +1,3 @@
-// QUESTION : Type d'évenement "pro" ou "particulier" ? Si oui, booleen eventModel ?
 'use strict';
 
 // get an instance of mongoose and mongoose.Schema
@@ -6,19 +5,19 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 
-// Declaring Event schema
-var EventTypeSchema = new Schema({
+// Declariong Report Type Schema
+var ReportTypeSchema = Schema({
     title: String,
     createDate: Date,
     updateDate: Date
 });
 
-EventTypeSchema.pre('save', function (next) {
-
+ReportTypeSchema.pre('save', function (next) {
+    
     let now = new Date();
-
+    
     this.updateDate = now;
-
+    
     next();
 });
 
@@ -27,4 +26,4 @@ EventTypeSchema.pre('save', function (next) {
 // =====================================================
 
 // Export mode
-module.exports = mongoose.model('EventType', EventTypeSchema);
+module.exports = mongoose.model('ReportType', ReportTypeSchema);
