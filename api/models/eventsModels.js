@@ -42,6 +42,7 @@ var EventSchema = new Schema({
         type : Boolean,
         default : false
     },
+    startDate : Date,
     endDate : Date,
     createDate : Date,
     updateDate : Date

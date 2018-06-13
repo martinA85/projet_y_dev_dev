@@ -13,6 +13,7 @@ module.exports = function(app, jwt){
     var reportType = require('../controllers/reportTypeController');
     var eventsTags = require('../controllers/eventsTagsController');
     var notification = require('../controllers/NotificationControllers');
+    var category = require('../controllers/categoryController');
     
     //route before middleware
     app.route('/auth').post(auth.authentificate);
@@ -87,4 +88,8 @@ module.exports = function(app, jwt){
     // Notificaiton routes
     app.route('/notification').post(notification.createNotification).get(notification.getAllNotification);
     app.route('/notification/:notificationId').get(notification.getOneNotificationById).put(notification.updateNotification).delete(notification.deleteNotification);
+
+    //category routes
+    app.route('/category').post(category.createCategory).get(category.getAllCategory);
+    app.route('/category/:categoryId').get(category.getCategoryById).put(category.updateCategory).delete(category.deleteCategory);
 }

@@ -18,6 +18,7 @@ var Report = require('./api/models/reportModels');
 var ReportType = require('./api/models/reportTypeModels');
 var EventsTags = require('./api/models/eventsTagsModels');
 var Notification = require('./api/models/notificationModels');
+var Category = require('./api/models/categoryModels');
 
 //exporting variable
 module.exports.jwt = jwt;
