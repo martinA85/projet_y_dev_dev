@@ -7,12 +7,16 @@ var Schema = mongoose.Schema;
 //Declaring Localisation shcema
 var LocalisationSchema = new Schema({
     lat : String,
-    Long : String,
+    long : String,
     adress : String,
     zip : String,
     city : String,
     country : String,
     name : String,
+    createDate : {
+        type : Date,
+        default : Date.now
+    }
 })
 
 

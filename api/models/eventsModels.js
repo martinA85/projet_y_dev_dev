@@ -12,6 +12,10 @@ var EventSchema = new Schema({
     description : String,
     picture : String,
     maxAttendees : String,
+    creator : {
+        type : Schema.Types.ObjectId,
+        ref: 'Users'
+    },
     comments : [{
         body : String,
         date : Date,

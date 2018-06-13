@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/martinA85/projet_y_dev_dev#readme",
   "devDependencies": {
+    "jsdoc": "^3.5.5",
     "nodemon": "^1.17.5"
   },
   "dependencies": {
