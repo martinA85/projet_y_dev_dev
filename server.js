@@ -5,6 +5,8 @@ var bodyParser = require("body-parser");
 var morgan = require("morgan");
 var mongoose = require("mongoose");
 var jwt = require("jsonwebtoken");
+var server = require('http').Server(app);
+var io = require("socket.io")(server);
 var config = require("./config");
 //TODO : externaliser
 var Users = require('./api/models/usersModels');
@@ -22,6 +24,9 @@ var Notification = require('./api/models/notificationModels');
 //exporting variable
 module.exports.jwt = jwt;
 module.exports.app = app;
+module.exports = io;
+
+var usersSocket = require('./api/sockets/usersSocket');
 
 //Configuration
 var port = process.env.PORT || 3000;
