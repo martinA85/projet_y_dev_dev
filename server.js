@@ -5,6 +5,8 @@ var bodyParser = require("body-parser");
 var morgan = require("morgan");
 var mongoose = require("mongoose");
 var jwt = require("jsonwebtoken");
+var server = require('http').createServer(app).listen(8080);
+var io = require("socket.io").listen(server);
 var config = require("./config");
 //TODO : externaliser
 var Users = require('./api/models/usersModels');
@@ -20,9 +22,13 @@ var EventsTags = require('./api/models/eventsTagsModels');
 var Notification = require('./api/models/notificationModels');
 var Category = require('./api/models/categoryModels');
 
+
 //exporting variable
+module.exports = io;
 module.exports.jwt = jwt;
 module.exports.app = app;
+
+var usersSocket = require('./api/sockets/usersSocket');
 
 //Configuration
 var port = process.env.PORT || 3000;
@@ -31,9 +37,9 @@ mongoose.connect(config.database);
 app.set('superSecret', config.secret);
 
 //setting up body-parser
-app.use(bodyParser.urlencoded({extended : true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(function(request, response, next){
+app.use(function (request, response, next) {
     response.header("Access-Control-Allow-Origin", "*");
     response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
@@ -42,8 +48,9 @@ app.use(function(request, response, next){
 //Morgan for log
 app.use(morgan('dev'));
 
+
 //Basic route
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
     res.send('vide');
 });
 

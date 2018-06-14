@@ -36,7 +36,8 @@ exports.authentificate = function(request, response){
                 response.json({
                     success : true,
                     message : 'Auth succeed',
-                    token : token
+                    token : token,
+                    _id : user._id
                 })
             }
         }
