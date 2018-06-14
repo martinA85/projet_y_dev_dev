@@ -18,7 +18,10 @@ var EventSchema = new Schema({
     },
     comments : [{
         body : String,
-        date : Date,
+        date : {
+            type : Date,
+            default : Date.now
+        },
         author : {
             type : Schema.Types.ObjectId,
             ref: 'Users'

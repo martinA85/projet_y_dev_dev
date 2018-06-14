@@ -102,8 +102,28 @@ exports.getEventWithRadius = function(request, response){
                 results.push(events[i])
             }
         }
-
         response.send(results);
     });
+}
 
+//return a message or error
+exports.commentEvent = function(request, response){
+    var userId = request.params.userId;
+    var eventId = request.params.eventId;
+
+    Event.findById(eventId, function(err, event){
+        if(err){
+            response.send(err);
+        }
+        if(event){
+            let new_comment = {body : request.body.text,author : userId};
+            event.comments.push(new_comment);
+            event.save(function(err, event){
+                if(err){
+                    response.send(err);
+                }
+                response.json({success:true, message:"comment added"});
+            });
+        }
+    })
 }
