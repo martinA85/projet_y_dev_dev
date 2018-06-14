@@ -6,13 +6,37 @@ var Schema = mongoose.Schema;
 
 // Creating user Schema
 var UsersSchema = new Schema({
-    name: String,
-    firstName: String,
+    name: {
+        type: String,
+        set: v => v.toUpperCase() // Make nAmE => NAME
+    },
+    firstName: {
+        type: String,
+        set: v => v.charAt(0).toUpperCase() + v.slice(1).toLowerCase() // Make fIrsTNaMe => Firstname
+    },
     isCompany: Boolean,
     companyName: String,
     description: String,
-    email: String,
-    password: String,
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        validate: {
+            validator: function (v) {
+                return /@/.test(v);
+            }
+        }
+    },
+    password: {
+        type: String,
+        required: true,
+        minlength: 7,
+        validate: {
+            validator: function (v) {
+                return /[a-z]/.test(v) && /[A-Z]/.test(v) && /\d/.test(v) && /[^A-Za-z0-9]/.test(v);
+            }, message: '{VALUE} is not a valid password !'
+        }, required: [true, 'Password is required']
+    },
     token: {
         type: String,
         default: ""
