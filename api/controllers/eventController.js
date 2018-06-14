@@ -2,6 +2,9 @@
 
 var mongoose =require("mongoose");
 var Event = mongoose.model("Event");
+var rad2deg = require('rad2deg');
+var deg2rad = require('deg2rad');
+var geoUtils = require('../utilis/geoUtils')
 
 // ====================================================
 // ======================  CRUD  ======================
@@ -62,3 +65,45 @@ exports.deleteEvent = function(request, response){
 // =====================================================
 // =================  Other function  ==================
 // =====================================================
+
+
+//Function that return a list of event found by the position of the user and a radius
+exports.getEventWithRadius = function(request, response){
+    const ER = 6371;
+    var radius = Number(request.params.radius);
+    var lat = Number(request.params.lat);
+    var long = Number(request.params.long);
+
+    //Math var
+    var acos = Math.acos;
+    var cos = Math.cos;
+    var sin = Math.sin;
+    var asin = Math.asin
+
+    var maxLat = lat + rad2deg(radius / ER);
+    var minLat = lat - rad2deg(radius / ER);
+    var maxLong = long + rad2deg(asin(radius/ER) / cos(deg2rad(lat)));
+    var minLong = long - rad2deg(asin(radius/ER) / cos(deg2rad(lat)));
+
+    Event.find({$and : [
+        {'coordinates.lat' : {$gte: minLat, $lte: maxLat}},
+        { 'coordinates.long' : {$gte: minLong, $lte: maxLong}}
+    ]}, function(err, events){
+        if(err){
+            response.send(err);
+        }
+        var results = [];
+        for(var i in events){
+            let latEv = events[i].coordinates.lat;
+            let longEv = events[i].coordinates.long;
+            let dist = geoUtils.computeDistanceBetween2Point(lat, latEv, long, longEv);
+
+            if(dist < radius){
+                results.push(events[i])
+            }
+        }
+
+        response.send(results);
+    });
+
+}

@@ -42,9 +42,21 @@ var EventSchema = new Schema({
         type : Boolean,
         default : false
     },
+    startDate : Date,
     endDate : Date,
-    createDate : Date,
-    updateDate : Date
+    createDate : {
+        type : Date,
+        default : Date.now
+    },
+    updateDate : Date,
+    coordinates : {
+        lat : Number,
+        long : Number
+    },
+    localisation : {
+        type : Schema.Types.ObjectId,
+        ref: 'Localisation' 
+    }
 
 });
 
