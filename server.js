@@ -21,7 +21,9 @@ var ReportType = require('./api/models/reportTypeModels');
 var EventsTags = require('./api/models/eventsTagsModels');
 var Notification = require('./api/models/notificationModels');
 var Category = require('./api/models/categoryModels');
+var cors = require('cors');
 
+app.use(cors());
 
 //exporting variable
 module.exports = io;

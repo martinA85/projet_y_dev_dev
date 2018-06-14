@@ -2,6 +2,7 @@
 
 var mongoose =require("mongoose");
 var Notification = mongoose.model("Notification");
+var notifSocket = require('../sockets/notificationSocket');
 
 // ====================================================
 // ======================  CRUD  ======================

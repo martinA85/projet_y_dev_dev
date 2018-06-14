@@ -10,12 +10,13 @@ var app = server.app;
 exports.authentificate = function(request, response){
     Users.findOne({email:request.body.email}, function(err, user){
         if (err) throw err;
-
+        console.log(request.body);
         if(!user){
             response.json({success: false, message: 'Auth failed, User not found'});
         }else if(user){
 
             if (user.password != request.body.password){
+                console.log(user.password);
                 response.json({success: false, message: 'Wrong password'});
             }else{
 

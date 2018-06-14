@@ -6,15 +6,22 @@ var Schema = mongoose.Schema;
 
 //Declaring Event schema
 var EventSchema = new Schema({
-    title : String,
+    title : {
+        type : String,
+        required: true
+    },
     dateEvent : Date,
-    subscription : Boolean,
+    subscription : {
+        type : Boolean,
+        default : false
+    },
     description : String,
     picture : String,
     maxAttendees : String,
     creator : {
         type : Schema.Types.ObjectId,
-        ref: 'Users'
+        ref: 'Users',
+        required: true
     },
     comments : [{
         body : String,
@@ -24,7 +31,8 @@ var EventSchema = new Schema({
         },
         author : {
             type : Schema.Types.ObjectId,
-            ref: 'Users'
+            ref: 'Users',
+            required: true
         }
     }],
     rates : [{
@@ -32,13 +40,15 @@ var EventSchema = new Schema({
         date : Date,
         author : {
             type : Schema.Types.ObjectId,
-            ref: 'Users'
+            ref: 'Users',
+            required: true
         }
     }],
     validations : [{
         user : {
             type : Schema.Types.ObjectId,
-            ref: 'Users'
+            ref: 'Users',
+            required: true
         }
     }],
     isEnd : {
@@ -53,8 +63,14 @@ var EventSchema = new Schema({
     },
     updateDate : Date,
     coordinates : {
-        lat : Number,
-        long : Number
+        lat : {
+            type : Number,
+            required: true
+        },
+        long : {
+            type : Number,
+            required: true
+        }
     },
     localisation : {
         type : Schema.Types.ObjectId,
@@ -64,11 +80,9 @@ var EventSchema = new Schema({
 });
 
 EventSchema.pre('save', function(next){
-
+    console.log("pre save");
     let now = new Date();
-
     this.updateDate = now;
-
     next();
 })
 

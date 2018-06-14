@@ -9,8 +9,8 @@ var Users = mongoose.model('Users');
 io.set('transports', ['websocket']);
 
 io.on('connection', function (socket) {
+    console.log(socket.id);
     var query = socket.request._query; // Get all query
-    
     var userId = query['userId'];
     
     if (userId) {
