@@ -127,3 +127,33 @@ exports.commentEvent = function(request, response){
         }
     })
 }
+
+//function that change Event image
+exports.uploadEventImage = function(request, response){
+    let image = false;
+    try{
+        image = request.files.image;
+    }catch(err){
+        response.send(err);
+    }
+    let eventId = request.params.eventId;
+
+    Event.findById(eventId, function(err, event){
+        if(err){
+            response.send(err);
+        }
+        image.mv('./ressource/image/'+image.name, function(err){
+            if(err){
+                response.send(err);
+            }
+            event.picture = image.name;
+            event.save(function(err, user){
+                if(err){
+                    response.send(err);
+                }else{
+                    response.json({success:true, message:"Image uploaded"});
+                }
+            });
+        })
+    });
+}

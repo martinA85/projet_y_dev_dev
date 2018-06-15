@@ -8,6 +8,8 @@ var jwt = require("jsonwebtoken");
 var server = require('http').createServer(app).listen(8080);
 var io = require("socket.io").listen(server);
 var config = require("./config");
+const fileUpload = require('express-fileupload');
+var cors = require('cors');
 //TODO : externaliser
 var Users = require('./api/models/usersModels');
 var Events = require('./api/models/eventsModels');
@@ -21,9 +23,7 @@ var ReportType = require('./api/models/reportTypeModels');
 var EventsTags = require('./api/models/eventsTagsModels');
 var Notification = require('./api/models/notificationModels');
 var Category = require('./api/models/categoryModels');
-var cors = require('cors');
 
-app.use(cors());
 
 //exporting variable
 module.exports = io;
@@ -50,6 +50,11 @@ app.use(function (request, response, next) {
 //Morgan for log
 app.use(morgan('dev'));
 
+//cors
+app.use(cors());
+
+//file upload
+app.use(fileUpload());
 
 //Basic route
 app.get('/', function (req, res) {
