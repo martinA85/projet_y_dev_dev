@@ -8,6 +8,7 @@ var Schema = mongoose.Schema;
 var UsersSchema = new Schema({
     name: String,
     firstName: String,
+    username: String,
     isCompany: Boolean,
     companyName: String,
     description: String,
@@ -22,6 +23,7 @@ var UsersSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    idUserNetwork: String,
     updateDate: Date,
     connection_type: String,
     status: String
