@@ -11,6 +11,7 @@ io.set('transports', ['websocket']);
 io.on('connection', function (socket) {
     var query = socket.request._query; // Get all query
     var userId = query['userId'];
+    console.log(query);
     if (userId) {
         var socketId = socket.id;
         Users.findById(userId, function (err, user) {

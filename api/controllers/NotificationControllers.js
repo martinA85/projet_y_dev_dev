@@ -62,3 +62,15 @@ exports.deleteNotification = function(request, response){
 // =====================================================
 // =================  Other function  ==================
 // =====================================================
+
+exports.testNotif = function(request, response){
+    var socketsId = request.body.socketsId;
+    var notif = "hello world 3.0";
+    notifSocket.sendNotificationToUser(socketsId,notif, function(result){
+        if(result){
+            response.send('notif not recieve.');
+        }else{
+            response.send('notif send succefully.');
+        }
+    });
+}

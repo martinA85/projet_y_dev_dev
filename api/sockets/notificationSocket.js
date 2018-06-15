@@ -11,9 +11,11 @@ var Users = mongoose.model('Users');
  * @param {Notification} notification
  * @author Martin Allimonier <martin@noosys.fr>
  */
-module.exports.sendNotificationToUser = function(socketId, notification){
+module.exports.sendNotificationToUser = function(socketId, notification, callback){
     var socket = io.sockets.sockets[socketId];
     if(socket){
-        socket.emit('new_notification', notification);
+        socket.emit('new_notification', notification, (data) => {
+            callback(data);
+        });
     }
 }
