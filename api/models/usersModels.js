@@ -24,7 +24,8 @@ var UsersSchema = new Schema({
     },
     updateDate: Date,
     connection_type: String,
-    status: String
+    status: String,
+    image : String
 
 })
 

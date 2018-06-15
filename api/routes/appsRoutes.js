@@ -48,6 +48,7 @@ module.exports = function(app, jwt){
     //User routes
     app.route('/users').get(users.getAllUsers);
     app.route('/users/:userId').get(users.getUserById).put(users.updateUser).delete(users.deleteUser);
+    app.route('/users/image/:userId').post(users.uploadImage).get(users.getUserImage);
 
     //Event routes
     app.route('/event').post(event.createEvent).get(event.getAllEvent);
