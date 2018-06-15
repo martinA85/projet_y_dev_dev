@@ -5,6 +5,7 @@ var Event = mongoose.model("Event");
 var rad2deg = require('rad2deg');
 var deg2rad = require('deg2rad');
 var geoUtils = require('../utilis/geoUtils')
+var fs = require('fs');
 
 // ====================================================
 // ======================  CRUD  ======================
@@ -155,5 +156,27 @@ exports.uploadEventImage = function(request, response){
                 }
             });
         })
+    });
+}
+
+
+//return the event image or error
+exports.getEventImage = function(request, response){
+    Event.findById(request.params.eventId, function(err, event){
+        if(err){
+            response.send(err);
+        }
+        if(event){
+            let img = false;
+            try{
+                img = fs.readFileSync('./ressource/image/'+event.picture);
+            }catch (err){
+                response.send(err);
+            }
+            if(img){
+                response.writeHead(200, {'Content-Type': 'image/gif' });
+                response.end(img, 'binary');
+            }
+        }
     });
 }
