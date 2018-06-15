@@ -88,7 +88,7 @@ exports.uploadImage = function(request, response){
 }
 
 
-
+//Return the users image
 exports.getUserImage = function(request, response){
     Users.findById(request.params.userId, function(err, user){
         if(err){
