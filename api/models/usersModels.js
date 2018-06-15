@@ -20,7 +20,6 @@ var UsersSchema = new Schema({
     description: String,
     email: {
         type: String,
-        required: true,
         unique: true,
         validate: {
             validator: function (v) {
@@ -28,15 +27,16 @@ var UsersSchema = new Schema({
             }
         }
     },
+    idUserNetwork: String,
     password: {
         type: String,
-        required: true,
         minlength: 7,
         validate: {
             validator: function (v) {
                 return /[a-z]/.test(v) && /[A-Z]/.test(v) && /\d/.test(v) && /[^A-Za-z0-9]/.test(v);
             }, message: '{VALUE} is not a valid password !'
-        }, required: [true, 'Password is required']
+        },
+        required: function () { return this.idUserNetwork == null; }
     },
     token: {
         type: String,
@@ -47,7 +47,6 @@ var UsersSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    idUserNetwork: String,
     updateDate: Date,
     connection_type: String,
     status: String
