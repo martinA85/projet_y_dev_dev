@@ -30,17 +30,5 @@ EventSubSchema.pre('save', function(next){
 // =================  Custom function  =================
 // =====================================================
 
-//Function that valid a subscription to an event
-//TODO : coder la fonction de validation d'une inscription
-EventSubSchema.validSubscription = function(){
-
-}
-
-//Function that cancel a subscription
-//TODO : coder la fonction d'annulation d'une inscription
-EventSubSchema.CancelSubscription = function(){
-
-}
-
 //Export model
 module.exports = mongoose.model('EventSubscription', EventSubSchema);
