@@ -56,6 +56,7 @@ module.exports = function(app, jwt){
     app.route('/event/:lat/:long/:radius').get(event.getEventWithRadius);
     app.route('/event/comment/:userId/:eventId').post(event.commentEvent);
     app.route('/event/image/:eventId').post(event.uploadEventImage).get(event.getEventImage);
+    app.route('/valid/event/:userId/:eventId').get(event.validEvent);
 
     //Tags routes
     app.route('/tag').post(tag.createTag).get(tag.getAllTags);

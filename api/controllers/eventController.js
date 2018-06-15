@@ -180,3 +180,19 @@ exports.getEventImage = function(request, response){
         }
     });
 }
+
+//Function that valid an event
+exports.validEvent = function(request, response){
+    Event.findById(request.params.eventId, function(err, event){
+        if(err){
+            response.send(err);
+        }
+        event.validations.push({user : request.params.userId});
+        event.save(function(err, event){
+            if(err){
+                response.send(err);
+            }
+            response.json({success:true, message:"Validation registerd"});
+        })
+    });
+}
