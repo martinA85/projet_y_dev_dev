@@ -14,6 +14,7 @@ var UsersSchema = new Schema({
         type: String,
         set: v => v.charAt(0).toUpperCase() + v.slice(1).toLowerCase() // Make fIrsTNaMe => Firstname
     },
+    username: String,
     isCompany: Boolean,
     companyName: String,
     description: String,
@@ -46,6 +47,7 @@ var UsersSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    idUserNetwork: String,
     updateDate: Date,
     connection_type: String,
     status: String

@@ -17,7 +17,7 @@ module.exports = function(app, jwt){
     
     //route before middleware
     app.route('/auth').post(auth.authentificate);
-    app.route('/users').post(users.createUser);
+    app.route('/subscribe').post(users.createUser);
 
     //Middleware : check token
     //TODO : find a way to export it to a middleware file
