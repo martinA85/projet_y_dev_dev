@@ -196,3 +196,25 @@ exports.validEvent = function(request, response){
         })
     });
 }
+
+
+//Function that finish an event
+exports.finishEvent = function(request, response){
+    let eventId = request.params.eventId;
+    let userId = request.params.userId;
+
+    Event.findById(eventId, function(err, event){
+        if(err){
+            res.send(err);
+        }
+        if(event.creator == userId){
+            event.isEnd = true;
+            event.save(function(err, event){
+                if(err){
+                    res.send(err);
+                }
+                response.json({success:true,message:'Event set as finish'});
+            });
+        }
+    });
+}

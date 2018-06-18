@@ -75,6 +75,10 @@ var EventSchema = new Schema({
     localisation : {
         type : Schema.Types.ObjectId,
         ref: 'Localisation' 
+    },
+    isEnd : {
+        type : Boolean,
+        default : false
     }
 
 });

@@ -105,6 +105,6 @@ exports.getUserImage = function(request, response){
                 response.writeHead(200, {'Content-Type': 'image/gif' });
                 response.end(img, 'binary');
             }
-        }  
+        }
     });
 }
