@@ -89,7 +89,8 @@ exports.getEventWithRadius = function(request, response){
 
     Event.find({$and : [
         {'coordinates.lat' : {$gte: minLat, $lte: maxLat}},
-        { 'coordinates.long' : {$gte: minLong, $lte: maxLong}}
+        { 'coordinates.long' : {$gte: minLong, $lte: maxLong}},
+        { 'isEnd' : false}
     ]}, function(err, events){
         if(err){
             response.send(err);
@@ -199,7 +200,7 @@ exports.validEvent = function(request, response){
 }
 
 
-//Function that invalid an event
+//Function that add invalidation to event, if this event is invalid (computed in utils), set event to end
 exports.invalidEvent = function(request, response){
     Event.findById(request.params.eventId, function(err, event){
         if(err){
@@ -210,7 +211,15 @@ exports.invalidEvent = function(request, response){
             if(err){
                 response.send(err);
             }
-            eventUtils.checkIfValid(event.validations);
+            if(!eventUtils.checkIfValid(event.validations)){
+                console.log('eventInvalid');
+                event.isEnd = true;
+                event.save(function(err, event){
+                    if(err){
+                        response.send(err);
+                    }
+                })
+            }
             response.json({success:true, message:"Validation registerd"});
         })
     });
