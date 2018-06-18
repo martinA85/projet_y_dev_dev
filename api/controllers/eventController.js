@@ -6,6 +6,7 @@ var rad2deg = require('rad2deg');
 var deg2rad = require('deg2rad');
 var geoUtils = require('../utilis/geoUtils')
 var fs = require('fs');
+var eventUtils = require('../utilis/eventUtils');
 
 // ====================================================
 // ======================  CRUD  ======================
@@ -187,11 +188,29 @@ exports.validEvent = function(request, response){
         if(err){
             response.send(err);
         }
-        event.validations.push({user : request.params.userId});
+        event.validations.push({user : request.params.userId, good : true});
         event.save(function(err, event){
             if(err){
                 response.send(err);
             }
+            response.json({success:true, message:"Validation registerd"});
+        })
+    });
+}
+
+
+//Function that invalid an event
+exports.invalidEvent = function(request, response){
+    Event.findById(request.params.eventId, function(err, event){
+        if(err){
+            response.send(err);
+        }
+        event.validations.push({user : request.params.userId, good : false});
+        event.save(function(err, event){
+            if(err){
+                response.send(err);
+            }
+            eventUtils.checkIfValid(event.validations);
             response.json({success:true, message:"Validation registerd"});
         })
     });

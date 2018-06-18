@@ -49,6 +49,10 @@ var EventSchema = new Schema({
             type : Schema.Types.ObjectId,
             ref: 'Users',
             required: true
+        },
+        good :{
+            type : Boolean,
+            default : true
         }
     }],
     isEnd : {

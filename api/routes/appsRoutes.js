@@ -58,6 +58,7 @@ module.exports = function(app, jwt){
     app.route('/event/comment/:userId/:eventId').post(event.commentEvent);
     app.route('/event/image/:eventId').post(event.uploadEventImage).get(event.getEventImage);
     app.route('/valid/event/:userId/:eventId').get(event.validEvent);
+    app.route('/invalid/event/:userId/:eventId').get(event.invalidEvent);
     app.route('/end/event/:eventId/:userId').get(event.finishEvent);
 
     //Tags routes
