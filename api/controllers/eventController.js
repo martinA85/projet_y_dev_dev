@@ -220,7 +220,7 @@ exports.invalidEvent = function(request, response){
                     }
                 })
             }
-            response.json({success:true, message:"Validation registerd"});
+            response.json({success:true, message:"invalidation registerd"});
         })
     });
 }
