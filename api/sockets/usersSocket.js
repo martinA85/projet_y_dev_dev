@@ -9,10 +9,9 @@ var Users = mongoose.model('Users');
 io.set('transports', ['websocket']);
 
 io.on('connection', function (socket) {
-    console.log(socket.id);
     var query = socket.request._query; // Get all query
     var userId = query['userId'];
-    
+    console.log(query);
     if (userId) {
         var socketId = socket.id;
         Users.findById(userId, function (err, user) {
@@ -23,6 +22,6 @@ io.on('connection', function (socket) {
                 user.save();
                 socket.emit('cnx_state', { success: true });
             }
-        })
+        });
     }
 });

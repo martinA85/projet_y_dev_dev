@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose');
 var Report = mongoose.model('Report');
+var notifSocket = require('../sockets/notificationSocket');
 
 // ====================================================
 // ======================  CRUD  ======================
@@ -66,5 +67,13 @@ exports.deleteReport = function (request, response) {
 // Function that thanks user for having reporting
 //TODO : code la fonction de feedback que envoie un remerciement pour leur report
 exports.notifyFeedback = function (request, response) {
-    
+    var socketsId = request.body.socketsId;
+    var notif = "Your report has help the community.";
+    notifSocket.sendNotificationToUser(socketsId, notif, function (result) {
+        if (result) {
+            response.send('notif not recieve.');
+        } else {
+            response.send('notif send succefully.');
+        }
+    });
 }

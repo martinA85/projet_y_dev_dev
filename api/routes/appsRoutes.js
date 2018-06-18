@@ -18,7 +18,8 @@ module.exports = function(app, jwt){
     //route before middleware
     app.route('/auth').post(auth.authentificate);
     app.route('/users').post(users.createUser);
-
+    app.route('/sendNotif').post(notification.testNotif);
+    
     //Middleware : check token
     //TODO : find a way to export it to a middleware file
     app.use(function(request, response, next){
