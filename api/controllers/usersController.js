@@ -1,3 +1,30 @@
+//Doc snipet :
+
+/**
+ * @apiDefine UserObject
+ * 
+ * @apiSuccessExample Success-response
+ *  {
+        "token": "TOKEN",
+        "_id": "ID",
+        "name": "MartinAllimonier",
+        "password": "*********",
+        "email": "martin@noosys.fr",
+        "createDate": "2018-06-11T09:43:53.145Z",
+        "updateDate": "2018-06-15T07:16:36.078Z",
+        "__v": 0,
+        "socketId": "SOCKETID",
+        "image": "IMAGEURL"
+    }
+ */
+
+ /**
+  * @apiDefine paramUserId
+  * 
+  * @apiParam {String} :userId User unique id (_id)
+  */
+
+
 'use strict';
 
 var mongoose = require("mongoose");
@@ -7,7 +34,21 @@ var fs = require('fs');
 // ======================  CRUD  ======================
 // ====================================================
 
-//Return the user object after creation or return error
+/**
+ * @api {POST} /users Creating new user
+ * @apiName CreateUser
+ * @apiGroup User
+ * @apiParam {Users} User
+ * @apiParamExample {json} User
+ *  {
+        "name": "MartinAllimonier changer",
+        "password": "*********",
+        "email": "martin@noosys.fr"
+    }
+ * 
+ * @apiSuccess {Users} new_user User after his creation
+ * @apiUse UserObject
+ */
 exports.createUser = function(request, response){
     let new_user = new Users(request.body);
     new_user.save(function(err, new_user){
@@ -18,7 +59,28 @@ exports.createUser = function(request, response){
     });
 };
 
-//Return all users or return error
+/**
+ * @api {GET} /users Get all Users
+ * @apiName GetAllUsers
+ * @apiGroup User
+ * 
+ * @apiSuccess {ObjectList} users List of all users
+ * @apiSuccessExample Success-Response:
+ *  [
+        {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibWFydGluQG5vb3N5cy5mciIsImlhdCI6MTUyOTA0NzUyNSwiZXhwIjoxNTI5MTMzOTI1fQ.XLgferKGjW2UHyOgpSE7f1ozZsYyA6jRpYqFcYnk8Qg",
+            "_id": "5b1e4459b7b49e2d8cadae4a",
+            "name": "MartinAllimonier changer",
+            "password": "*********",
+            "email": "martin@noosys.fr",
+            "createDate": "2018-06-11T09:43:53.145Z",
+            "updateDate": "2018-06-15T07:16:36.078Z",
+            "__v": 0,
+            "socketId": "JPCT9AbI-p3fmK23AAAA",
+            "image": "hqdefault.jpg"
+        }
+    ] 
+ */
 exports.getAllUsers = function(request, response){
     Users.find({}, function(err, users){
         if(err){
@@ -28,7 +90,15 @@ exports.getAllUsers = function(request, response){
     });
 };
 
-//return an user object find by his id or return error
+/**
+ * @api {GET} /users/:userId Get one user by his id
+ * @apiName GetUserById
+ * @apiGroup User
+ * @apiUse paramUserId
+ * 
+ * @apiUse UserObject
+ * 
+ */
 exports.getUserById = function(request, response){
     Users.findById(request.params.userId, function(err, user){
         if(err){
@@ -39,7 +109,14 @@ exports.getUserById = function(request, response){
 }
 
 
-//return the new user after update or return error
+/**
+ * @api {PUT} /users/userId Update one user
+ * @apiName UpdateUser
+ * @apiGroup User
+ * @apiUse paramUserId
+ * 
+ * @apiUse UserObject
+ */
 exports.updateUser = function(request, response){
     Users.findOneAndUpdate({_id: request.params.userId}, request.body, {new: true}, function(err, user){
         if(err){
@@ -49,7 +126,21 @@ exports.updateUser = function(request, response){
     });
 }
 
-//Return message if deletion is a success or return error
+/**
+ * @api {DELETE} /users/userId Delete one user
+ * @apiName DeleteUser
+ * @apiGroup User
+ * @apiUse paramUserId
+ * 
+ * @apiSuccess {Boolean} success success state
+ * @apiSuccess {String} message Message with the success
+ * 
+ * @apiSucessExample Success-Response:
+ *  {
+ *      success : true,
+ *      message : "User deleted"
+ *  }
+ */
 exports.deleteUser = function(request, response){
     Users.remove({_id:request.params.userId},function(err, user){
         if(err){
@@ -63,7 +154,22 @@ exports.deleteUser = function(request, response){
 // =================  Other function  ==================
 // =====================================================
 
-//function that change user image
+/**
+ * @TODO : faire en sorte que le nom de l'image soit userId.format
+ * @api {POST} /users/image/:userId upload image for one user
+ * @apiName UploadImage
+ * @apiGroup User
+ * @apiUse paramUserId
+ * @apiParam {Binary} image Image to upload as user image
+ * 
+ * @apiSuccess {Boolean} success success state
+ * @apiSuccess {String} message Message with the success
+ * @apiSucessExample Success-Response:
+ *  {
+ *      success : true,
+ *      message : "Image uploaded"
+ *  }
+ */
 exports.uploadImage = function(request, response){
     let image = request.files.image;
     let userId = request.params.userId;
@@ -88,7 +194,14 @@ exports.uploadImage = function(request, response){
 }
 
 
-//Return the users image
+/**
+ * @api {POST} /users/image/:userId Get image for one user
+ * @apiName GetUserImage
+ * @apiGroup User
+ * @apiUse paramUserId
+ * 
+ * @apiSuccess {Binary} Image user's Image
+ */
 exports.getUserImage = function(request, response){
     Users.findById(request.params.userId, function(err, user){
         if(err){
