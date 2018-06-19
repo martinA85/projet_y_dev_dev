@@ -11,10 +11,6 @@ var EventSchema = new Schema({
         required: true
     },
     dateEvent : Date,
-    subscription : {
-        type : Boolean,
-        default : false
-    },
     description : String,
     picture : String,
     maxAttendees : String,
@@ -92,7 +88,11 @@ var EventSchema = new Schema({
         hideAddr : {
             type : Boolean,
             default : false
-        }
+        },
+        subscription : {
+            type : Boolean,
+            default : false
+        },
     }
 });
 

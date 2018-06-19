@@ -1,6 +1,7 @@
 'use strict';
 
 var mongoose =require("mongoose");
+var Event = mongoose.model("Event");
 var EventSub = mongoose.model("EventSubscription");
 
 // ====================================================
@@ -11,13 +12,25 @@ var EventSub = mongoose.model("EventSubscription");
 exports.createEventSubscription = function(request, response){
     let new_subscription = new EventSub(request.body);
     new_subscription.save(function(err, new_subscription){
-        console.log("sav done");
         if(err){
-            console.log(err)
             response.send(err);
         }
-        console.log(new_subscription);
-        response.json(new_subscription);
+        Event.findById(new_subscription.eventSub, function(err, event){
+            if(err){
+                response.send(err);
+            }
+            let response_msg;
+            if(event.options.subValided){
+                new_subscription.status = "wating";
+                response_msg = {success : true, message:"Subscription registered, waiting for organizator validation"}
+            }else{
+                new_subscription.status = "valid";
+                response_msg = {success : true, message:"Subscription registered"}
+            }
+            new_subscription.save(function(err, subscription){
+                response.json(response_msg);
+            });
+        });
     });
 }
 
