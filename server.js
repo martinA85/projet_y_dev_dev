@@ -23,6 +23,7 @@ var ReportType = require('./api/models/reportTypeModels');
 var EventsTags = require('./api/models/eventsTagsModels');
 var Notification = require('./api/models/notificationModels');
 var Category = require('./api/models/categoryModels');
+var docs = require("express-mongoose-docs");
 
 
 //exporting variable
@@ -61,9 +62,11 @@ app.get('/', function (req, res) {
     res.send('vide');
 });
 
+docs(app, mongoose);
 //setting up routes
 var routes = require('./api/routes/appsRoutes'); //importing route
 routes(app, jwt); //register the route
+
 
 //start server
 app.listen(port);

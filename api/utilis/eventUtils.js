@@ -7,7 +7,6 @@
  * @author Martin Allimonier <martin@noosys.fr>
  */
 exports.checkIfValid = function(lstValidations){
-    console.log("checkIfValid");
     
     if(lstValidations.length > 15){
         let goodCount = 0;
@@ -21,10 +20,8 @@ exports.checkIfValid = function(lstValidations){
         }
         let ratio = goodCount / badCount
         if(ratio <= 0.25){
-            console.log("false : " + ratio);
             return false
         }else{
-            console.log("true : " + ratio);
             return true
         }
     }else{

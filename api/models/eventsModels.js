@@ -83,7 +83,7 @@ var EventSchema = new Schema({
     isEnd : {
         type : Boolean,
         default : false
-    }
+    },
 
 });
 
