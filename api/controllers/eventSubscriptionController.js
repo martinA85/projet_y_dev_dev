@@ -78,3 +78,27 @@ exports.deleteEventSubscription = function(request, response){
 // =====================================================
 // =================  Other function  ==================
 // =====================================================
+
+//function that valid a subscription to an event
+exports.validSubscription = function(request, response){
+    EventSub.findById(request.params.eventSubId, function(err, eventSub){
+        if(err){
+            response.send(err);
+        }
+        Event.findById(eventSub.eventSub, function(err, event){
+            let response_msg = ""
+            if(event.creator == request.params.userId){
+                eventSub.status = "valid";
+                response_msg = {success:false, message:"Subscription valided"}
+            }else{
+                response_msg = {success:false, message:"Only event's creator can valid subscription"}
+            }
+            eventSub.save(function(err, eventSub){
+                if(err){
+                    response.send(err);
+                }
+                response.json(response_msg);
+            });
+        });
+    })
+}
