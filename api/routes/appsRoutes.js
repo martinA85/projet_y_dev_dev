@@ -69,6 +69,7 @@ module.exports = function(app, jwt){
     app.route('/eventSub').post(eventSub.createEventSubscription).get(eventSub.GetAllSubscription);
     app.route('/eventSub/:eventSubId').get(eventSub.getEventSubById).put(eventSub.updateEventSubscription).delete(eventSub.deleteEventSubscription);
     app.route('/valid/eventSub/:eventSubId/:userId').get(eventSub.validSubscription);
+    app.route('/invalid/eventSub/:eventSubId/:userId').get(eventSub.invalidSubscription);
 
     //Interest routes
     app.route('/interest').post(interest.createInterest).get(interest.getAllInterest);

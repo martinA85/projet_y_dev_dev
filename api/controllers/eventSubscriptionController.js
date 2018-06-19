@@ -102,3 +102,29 @@ exports.validSubscription = function(request, response){
         });
     })
 }
+
+
+
+//function that invalid a subscription to an event
+exports.invalidSubscription = function(request, response){
+    EventSub.findById(request.params.eventSubId, function(err, eventSub){
+        if(err){
+            response.send(err);
+        }
+        Event.findById(eventSub.eventSub, function(err, event){
+            let response_msg = ""
+            if(event.creator == request.params.userId){
+                eventSub.status = "Invalid";
+                response_msg = {success:false, message:"Subscription invalided"}
+            }else{
+                response_msg = {success:false, message:"Only event's creator can invalid subscription"}
+            }
+            eventSub.save(function(err, eventSub){
+                if(err){
+                    response.send(err);
+                }
+                response.json(response_msg);
+            });
+        });
+    })
+}
