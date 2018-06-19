@@ -84,7 +84,16 @@ var EventSchema = new Schema({
         type : Boolean,
         default : false
     },
-
+    options : {
+        subValided : {
+            type : Boolean,
+            default : false
+        },
+        hideAddr : {
+            type : Boolean,
+            default : false
+        }
+    }
 });
 
 EventSchema.pre('save', function(next){
