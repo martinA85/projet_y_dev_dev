@@ -1,3 +1,39 @@
+//Doc snippet
+
+/**
+ * @apiDefine EventObject
+ * @apiSuccessExample Sucess-response
+ * Example of event object
+ * {
+        "coordinates": {
+            "lat": 47,
+            "long": -1
+        },
+        "options": {
+            "subValided": false,
+            "hideAddr": false,
+            "subscription": false
+        },
+        "isEnd": false,
+        "_id": "5b2212a502d86b09906d2a92",
+        "title": "Event 1",
+        "creator": "5b1e4459b7b49e2d8cadae4a",
+        "comments": [],
+        "rates": [],
+        "validations": [],
+        "createDate": "2018-06-14T07:00:53.021Z",
+        "updateDate": "2018-06-14T07:00:53.027Z",
+        "__v": 0
+    }
+ */
+
+ /**
+  * @apiDefine paramEventId
+  * @apiParam {String} :eventId Event unique id (_id)
+  */
+
+
+
 'use strict';
 
 var mongoose =require("mongoose");
@@ -12,7 +48,36 @@ var eventUtils = require('../utilis/eventUtils');
 // ======================  CRUD  ======================
 // ====================================================
 
-//Return the event after his creation or return error
+/**
+ * @api {POST} /event Creating new Event
+ * @apiName CreateEvent
+ * @apiGroup Event
+ * @apiParam {Event} Event
+ * @apiParamExample {json} Event
+ * {
+        "coordinates": {
+            "lat": 47,
+            "long": -1
+        },
+        "options": {
+            "subValided": false,
+            "hideAddr": false,
+            "subscription": false
+        },
+        "isEnd": false,
+        "title": "Event 1",
+        "comments": [],
+        "rates": [],
+        "validations": [],
+        "createDate": "2018-06-14T07:00:53.021Z",
+        "updateDate": "2018-06-14T07:00:53.027Z",
+        "__v": 0
+    }
+ *
+ * @apiSuccess {Event} new_event after his creation
+ * @apiUse EventObject
+ */
+
 exports.createEvent = function(request, response){
     let new_event = new Event(request.body);
     new_event.save(function(err, new_event){
@@ -23,7 +88,33 @@ exports.createEvent = function(request, response){
     });
 }
 
-//return a list of event or return error
+/**
+ * @api {GET} /event Get all events
+ * @apiName GetAllEvents
+ * @apiGroup Event
+ * 
+ * @apiSuccess {ObjectList} Events List of all Events
+ * @apiSuccessExample Sucess-Response
+ * [{
+        "coordinates": {
+            "lat": 47,
+            "long": -1
+        },
+        "options": {
+            "subValided": false,
+            "hideAddr": false,
+            "subscription": false
+        },
+        "isEnd": false,
+        "title": "Event 1",
+        "comments": [],
+        "rates": [],
+        "validations": [],
+        "createDate": "2018-06-14T07:00:53.021Z",
+        "updateDate": "2018-06-14T07:00:53.027Z",
+        "__v": 0
+    }]
+ */
 exports.getAllEvent = function(request, response){
     Event.find({}, function(err, events){
         if(err){
@@ -33,7 +124,14 @@ exports.getAllEvent = function(request, response){
     });
 }
 
-//Return one event find by his id or return error
+/**
+ * @api {GET} /event/:eventId Get one event by his id 
+ * @apiName GetEventById
+ * @apiGroup Event
+ * @apiUse paramEventId
+ * 
+ * @apiUse EventObject
+ */
 exports.getEventById = function(request, response){
     Event.findById(request.params.eventId, function(err, event){
         if(err){
@@ -43,7 +141,14 @@ exports.getEventById = function(request, response){
     });
 }
 
-//Returne the event updated or return error
+/**
+ * @api {PUT} /event/:eventId Update one event by his id 
+ * @apiName UpdateEvent
+ * @apiGroup Event
+ * @apiUse paramEventId
+ * 
+ * @apiUse EventObject
+ */
 exports.updateEvent = function(request, response){
     Event.findByIdAndUpdate({_id:request.params.eventId}, request.body, {new : true}, function(err, event){
         if(err){
@@ -53,7 +158,21 @@ exports.updateEvent = function(request, response){
     });
 }
 
-//return message if deletion is a success or return error
+/**
+ * @api {DELETE} /event/:eventId Delete one event by his id 
+ * @apiName DeleteEvent
+ * @apiGroup Event
+ * @apiUse paramEventId
+ * 
+ * @apiSuccess {Boolean} success success state
+ * @apiSuccess {String} message Message with the success
+ * 
+ * @apiSuccessExample Success-Response:
+ *  {
+ *      success : true,
+ *      message : "Event deleted"
+ *  }
+ */
 exports.deleteEvent = function(request, response){
     Event.remove({_id:request.params.eventId}, function(err, event){
         if(err){
@@ -69,7 +188,36 @@ exports.deleteEvent = function(request, response){
 // =====================================================
 
 
-//Function that return a list of event found by the position of the user and a radius
+/**
+ * @api {GET} /event/:lat/:long/:radius get all event in certain radius
+ * @apiName GetEventWithRadius
+ * @apiGroup Event
+ * @apiParam {Int} :radius radius for event
+ * @apiParam {Int} :lat user latitude
+ * @apiParam {Int} :long user longitude
+ * 
+ * @apiSuccess {ObjectList} Events List of Events
+ * @apiSuccessExample Sucess-Response
+ * [{
+        "coordinates": {
+            "lat": 47,
+            "long": -1
+        },
+        "options": {
+            "subValided": false,
+            "hideAddr": false,
+            "subscription": false
+        },
+        "isEnd": false,
+        "title": "Event 1",
+        "comments": [],
+        "rates": [],
+        "validations": [],
+        "createDate": "2018-06-14T07:00:53.021Z",
+        "updateDate": "2018-06-14T07:00:53.027Z",
+        "__v": 0
+    }]
+ */
 exports.getEventWithRadius = function(request, response){
     const ER = 6371;
     var radius = Number(request.params.radius);
@@ -109,7 +257,26 @@ exports.getEventWithRadius = function(request, response){
     });
 }
 
-//return a message or error
+/**
+ * @api {POST} /event/comment/:userId/:eventId add a comment to an event
+ * @apiName CommentEvent
+ * @apiGroup Event
+ * @apiParam {String} :userId id of the user that post the comment
+ * @apiParam {String} :eventId id of the event to comment
+ * @apiParam {Comment} comment Comment object to post
+ * @apiParamExample {Comment} Comment
+ * {
+ *      body : "ceci est un commentaire",
+ *      author : "_id author"
+ * }
+ * 
+ * @apiSuccess {String} message Sucess Message
+ * @apiSuccessExample Success-Response:
+ * {
+ *      success : true,
+ *      message : "comment added"
+ * }
+ */
 exports.commentEvent = function(request, response){
     var userId = request.params.userId;
     var eventId = request.params.eventId;
@@ -131,7 +298,22 @@ exports.commentEvent = function(request, response){
     })
 }
 
-//function that change Event image
+/**
+ * @TODO : faire en sorte que le nom de l'image soit eventId.format
+ * @api {POST} /event/image/:eventId upload image for one event
+ * @apiName UploadImageEvent
+ * @apiGroup Event
+ * @apiUse paramEventId
+ * @apiParam {Binary} image Image to upload as event image
+ * 
+ * @apiSuccess {Boolean} success success state
+ * @apiSuccess {String} message Message with the success
+ * @apiSuccessExample Success-Response:
+ *  {
+ *      success : true,
+ *      message : "Image uploaded"
+ *  }
+ */
 exports.uploadEventImage = function(request, response){
     let image = false;
     try{
@@ -162,7 +344,14 @@ exports.uploadEventImage = function(request, response){
 }
 
 
-//return the event image or error
+/**
+ * @api {GET} /event/image/:userId Get image for one event
+ * @apiName GetEventImage
+ * @apiGroup Event
+ * @apiUse paramEventId
+ * 
+ * @apiSuccess {Binary} Image user's Image
+ */
 exports.getEventImage = function(request, response){
     Event.findById(request.params.eventId, function(err, event){
         if(err){
@@ -183,7 +372,22 @@ exports.getEventImage = function(request, response){
     });
 }
 
-//Function that valid an event
+/**
+ * @TODO faire en sorte qu'un utilisateur ne puisse pas valider 2 fois le même event
+ * @api {GET} /valid/event/:userId/:eventId Add a validation to an event
+ * @apiName ValidEvent
+ * @apiGroup Event
+ * @apiUse paramEventId
+ * @apiParam {String} :userId user's id
+ * 
+ * @apiSuccess {Boolean} success success state
+ * @apiSuccess {String} message Message returned
+ * @apiSuccessExample Success-Response:
+ * {
+ *      success : true,
+ *      message : "Validation registered"
+ * }
+ */
 exports.validEvent = function(request, response){
     Event.findById(request.params.eventId, function(err, event){
         if(err){
@@ -200,7 +404,22 @@ exports.validEvent = function(request, response){
 }
 
 
-//Function that add invalidation to event, if this event is invalid (computed in utils), set event to end
+/**
+ * @TODO faire en sorte qu'un utilisateur ne puisse pas invalider 2 fois le même event
+ * @api {GET} /invalid/event/:userId/:eventId Add a validation to an event
+ * @apiName InvalidEvent
+ * @apiGroup Event
+ * @apiUse paramEventId
+ * @apiParam {String} :userId user's id
+ * 
+ * @apiSuccess {Boolean} success success state
+ * @apiSuccess {String} message Message returned
+ * @apiSuccessExample Success-Response:
+ * {
+ *      success : true,
+ *      message : "Invalidation registered"
+ * }
+ */
 exports.invalidEvent = function(request, response){
     Event.findById(request.params.eventId, function(err, event){
         if(err){
@@ -226,7 +445,20 @@ exports.invalidEvent = function(request, response){
 }
 
 
-//Function that finish an event
+/**
+ * @api {GET} /end/event/:eventId/:userId Set an event as finished
+ * @apiName FinishEvent
+ * @apiGroup Event
+ * @apiUse paramEventId
+ * @apiParam {String} :userId user's id, must be the event's creator id
+ * 
+ * @apiSuccess {Boolean} success Success status
+ * @apiSuccess {String} message Message returned
+ * {
+ *      success : true,
+ *      message : "Event Set as finish"
+ * }
+ */
 exports.finishEvent = function(request, response){
     let eventId = request.params.eventId;
     let userId = request.params.userId;

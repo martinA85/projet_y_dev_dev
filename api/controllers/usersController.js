@@ -135,7 +135,7 @@ exports.updateUser = function(request, response){
  * @apiSuccess {Boolean} success success state
  * @apiSuccess {String} message Message with the success
  * 
- * @apiSucessExample Success-Response:
+ * @apiSuccessExample Success-Response:
  *  {
  *      success : true,
  *      message : "User deleted"
@@ -164,7 +164,7 @@ exports.deleteUser = function(request, response){
  * 
  * @apiSuccess {Boolean} success success state
  * @apiSuccess {String} message Message with the success
- * @apiSucessExample Success-Response:
+ * @apiSuccessExample Success-Response:
  *  {
  *      success : true,
  *      message : "Image uploaded"
