@@ -74,7 +74,7 @@ var eventUtils = require('../utilis/eventUtils');
         "__v": 0
     }
  *
- * @apiSuccess {Event} new_event after his creation
+ * @apiSuccess {Event} new_event after it creation
  * @apiUse EventObject
  */
 
