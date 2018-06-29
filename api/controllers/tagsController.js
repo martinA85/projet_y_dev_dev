@@ -1,3 +1,5 @@
+//Doc snippet
+
 'use strict';
 
 var mongoose =require("mongoose");
@@ -7,6 +9,7 @@ var Tag = mongoose.model("Tag");
 // ======================  CRUD  ======================
 // ====================================================
 
+//TODO : Doc comments
 //Return the tag after his creation or error
 exports.createTag = function(request, response){
     let new_tag = new Tag(request.body);
@@ -18,7 +21,18 @@ exports.createTag = function(request, response){
     });
 }
 
-//Return all tags or error
+/**
+ * @api {GET} /tag Getting all Tag
+ * @apiName GetAllTag
+ * @apiGroup Tags
+ * @apiSuccess {ObjectList} ReportTypes List of all Report Types
+ * @apiSuccessExample Success-Response
+ * [
+ *  {
+ *      tagName : "TAGNAME"
+ *  }
+ * ]
+ */
 exports.getAllTags = function(request, response){
     Tag.find({}, function(err, tags){
         if(err){
@@ -28,6 +42,7 @@ exports.getAllTags = function(request, response){
     });
 }
 
+//TODO : Doc comments
 //Return one tag find by his id or error
 exports.getTagById = function(request, response){
     Tag.findById(request.params.tagId, function(err, tag){
@@ -48,6 +63,7 @@ exports.updateTag = function(request, response){
     });
 }
 
+//TODO : Doc comments
 // return message if success or error
 exports.deleteEvent = function(request, response){
     Tag.remove({_id:request.params.tagId}, function(err, event){

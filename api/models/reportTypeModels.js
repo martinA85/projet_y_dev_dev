@@ -8,7 +8,10 @@ var Schema = mongoose.Schema;
 // Declariong Report Type Schema
 var ReportTypeSchema = Schema({
     title: String,
-    createDate: Date,
+    createDate: {
+        type : Date,
+        default : Date.now
+    },
     updateDate: Date
 });
 

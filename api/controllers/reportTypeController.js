@@ -24,6 +24,12 @@ exports.createReportType = function (request, response) {
  * @apiName GetAllReportType
  * @apiGroup ReportType
  * @apiSuccess {ObjectList} ReportTypes List of all Report Types
+ * @apiSuccessExample Success-Response
+ * [
+ *  {
+ *      title : "REPORTTYPE"
+ *  }
+ * ]
  */
 exports.getAllReportType = function (request, response) {
     ReportType.find({}, function (err, reportType) {
