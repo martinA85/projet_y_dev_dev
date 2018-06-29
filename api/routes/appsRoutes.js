@@ -98,6 +98,7 @@ module.exports = function(app, jwt){
     // Notificaiton routes
     app.route('/notification').post(notification.createNotification).get(notification.getAllNotification);
     app.route('/notification/:notificationId').get(notification.getOneNotificationById).put(notification.updateNotification).delete(notification.deleteNotification);
+    app.route('/myNotification/:userId').get(notification.getMyNotification)
 
     //category routes
     app.route('/category').post(category.createCategory).get(category.getAllCategory);

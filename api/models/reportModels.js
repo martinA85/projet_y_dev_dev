@@ -15,6 +15,7 @@ var ReportSchema = new Schema({
         ref: 'Users'
     },
     reporter: {
+        //user that send the report
         type: Schema.Types.ObjectId,
         ref: 'Users'
     },

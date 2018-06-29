@@ -139,3 +139,28 @@ exports.testNotif = function(request, response){
         }
     });
 }
+
+
+/**
+ * @api {GET} /myNotification/:userId Get User's notification
+ * @apiName GetMyNotification
+ * @apiGroup Notification
+ * @apiParam {String} :userId User's unique id (_id)
+ * @apiSuccess {ObjectList} Notifications List of all User's Notifications
+ * @apiSuccessExample Success-response
+ * [
+ *  {
+ *      message : "MESSAGE",
+ *      event : "eventId"
+ *  }
+ * ]
+ */
+exports.getMyNotification = function(request, response){
+    var userId = request.params.userId;
+    Notification.find({user : userId}, function(err, notifications){
+        if(err){
+            response.send(err);
+        }
+        response.json(notifications);
+    })
+}
